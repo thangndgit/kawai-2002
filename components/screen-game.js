@@ -28,7 +28,6 @@ export class ScreenGame extends Screen {
         justify-content: center;
         align-items: center;
         padding: 0 6vw;
-        gap: 6vh;
       }
       .game-status {
         box-sizing: border-box;
@@ -36,7 +35,7 @@ export class ScreenGame extends Screen {
         padding: 4vh 0;
       }
       .game-sheet {
-        height: 100%;
+        height: 100vh;
         aspect-ratio: 72/55;
       }
     `;
