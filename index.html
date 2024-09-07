@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Stop N Stack" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="assets/icons//icon-128x128.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet" />
+    <title>Kawai 2002</title>
+  </head>
+
+  <body>
+    <main id="container">
+      <mtm-screen-home id="screen-home"></mtm-screen-home>
+      <mtm-screen-game id="screen-game"></mtm-screen-game>
+    </main>
+
+    <!-- for install app - do not remove -->
+    <button id="install-button" aria-label="Install" hidden></button>
+    <!-- <script>
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script> -->
+    <script src="constants/constants.js"></script>
+    <script type="module" src="components/index.js"></script>
+    <script type="module" src="scripts/screen-manager.js"></script>
+    <script src="scripts/device-content.js"></script>
+    <script src="scripts/app-install.js"></script>
+  </body>
+</html>

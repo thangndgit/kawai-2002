@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Stop N Stack" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="assets/icons//icon-128x128.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" />
+    <title>Stop N Stack</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="game"></div>
+      <div id="score">0</div>
+      <div id="instructions">
+        <span class="desktop">Click or press space to place the block</span>
+        <span class="mobile">Touch the screen to place the block</span>
+      </div>
+      <div class="game-over">
+        <h2>Game Over</h2>
+        <div id="game-result-1">You did great, you're the best</div>
+        <div id="game-result-2"></div>
+      </div>
+      <div class="game-ready">
+        <div id="start-button">Start</div>
+      </div>
+      <button id="install-button" aria-label="Install" hidden></button>
+      <button id="sound-button" class="app-button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-volume-2"
+        >
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+      </button>
+      <button id="difficult-button" class="app-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path
+            d="M10,9v2a1,1,0,0,1-2,0V9a1,1,0,0,1,2,0Zm5-1a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V9A1,1,0,0,0,15,8Zm8,4A11,11,0,1,1,12,1,11.013,11.013,0,0,1,23,12Zm-2,0a9,9,0,1,0-9,9A9.01,9.01,0,0,0,21,12Z"
+          />
+        </svg>
+      </button>
+      <button id="stats-button" class="app-button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-bar-chart"
+        >
+          <line x1="12" y1="20" x2="12" y2="10"></line>
+          <line x1="18" y1="20" x2="18" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="16"></line>
+        </svg>
+      </button>
+      <span id="difficult-alert" class="hidden"></span>
+      <span id="stats-alert" class="hidden"> </span>
+    </div>
+
+    <script>
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script>
+    <script src="constants/constants.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/settings.js"></script>
+    <script src="scripts/device-content.js"></script>
+    <script src="scripts/app-install.js"></script>
+    <script src="assets/js/three.js"></script>
+    <script src="assets/js/tweenlite.js"></script>
+    <script src="src/stage.js"></script>
+    <script src="src/block.js"></script>
+    <script src="src/game.js"></script>
+    <script src="upup.min.js"></script>
+    <script>
+      if (UpUp !== null) {
+        UpUp.start({
+          "cache-version": "0.1",
+          "content-url": "index.html",
+          assets: [
+            "index.html",
+            "favicon.png",
+            "manifest.json",
+            "assets/js/three.js",
+            "assets/js/tweenlite.js",
+            "assets/icons/icon-72x72.png",
+            "assets/icons/icon-96x96.png",
+            "assets/icons/icon-128x128.png",
+            "assets/icons/icon-144x144.png",
+            "assets/icons/icon-152x152.png",
+            "assets/icons/icon-192x192.png",
+            "assets/icons/icon-256x256.png",
+            "assets/icons/icon-384x384.png",
+            "assets/icons/icon-512x512.png",
+            "assets/sounds/miss.mp3",
+            "assets/sounds/score.mp3",
+            "assets/sounds/break-record.mp3",
+            "assets/sounds/score-perfect-1.wav",
+            "assets/sounds/score-perfect-2.wav",
+            "assets/sounds/score-perfect-3.wav",
+            "assets/sounds/score-perfect-4.wav",
+            "assets/sounds/score-perfect-5.wav",
+            "assets/sounds/score-perfect-6.wav",
+            "assets/sounds/score-perfect-7.wav",
+            "assets/sounds/score-perfect-8.wav",
+            "styles/style.css",
+            "constants/constants.js",
+            "scripts/settings.js",
+            "scripts/app-install.js",
+            "scripts/device-content.js",
+            "scripts/utils.js",
+            "src/stage.js",
+            "src/block.js",
+            "src/game.js",
+          ],
+        });
+      }
+    </script>
+  </body>
+</html>
