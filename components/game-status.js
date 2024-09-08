@@ -9,7 +9,7 @@ export class GameStatus extends HTMLElement {
 
     this.points = document.createElement("span");
     this.points.classList.add("points");
-    this.points.innerText = this.getAttribute("points") || "10000";
+    this.points.innerText = this.getAttribute("points") || "0";
 
     this.timer = document.createElement("mtm-timer-bar");
     this.timer.classList.add("timer");
@@ -52,12 +52,12 @@ export class GameStatus extends HTMLElement {
     this.shadowRoot.appendChild(statusBar);
   }
 
-  updateLives(lives) {
-    this.lives.innerText = lives;
+  addPoints(points) {
+    this.points.innerText = Number(this.points.innerText) + points;
   }
 
-  updatePoints(points) {
-    this.points.innerText = points;
+  addLives(lives) {
+    this.lives.innerText = Number(this.lives.innerText) + lives;
   }
 
   startTimer() {

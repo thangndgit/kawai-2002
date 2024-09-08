@@ -26,7 +26,7 @@ export class GameCell extends HTMLElement {
         pointer-events: auto;
         padding: 0 0.75vh;
       }
-      .cell:hover, .cell.selected {
+      .cell:hover, .cell.picked {
         border: 0.4vh double #ff8d00;
       }
       .cell.selected {
@@ -38,7 +38,7 @@ export class GameCell extends HTMLElement {
         background-repeat: no-repeat;
         background-position: center;
       }
-      .road {
+      .road, .road:hover, .road.selected {
         background: transparent;
         border: none;
         border-radius:0;
@@ -162,29 +162,23 @@ export class GameCell extends HTMLElement {
   }
 
   render() {
+    const picked = this.getAttribute("picked");
     const char = this.getAttribute("char");
-    const dir1 = this.getAttribute("dir1") || "up";
-    const dir2 = this.getAttribute("dir2") || "down";
+    const dir1 = this.getAttribute("dir1");
+    const dir2 = this.getAttribute("dir2");
     this.cell.classList = "";
     this.cell.classList.add("cell");
+    if (picked) this.cell.classList.add("picked");
     if (!char) this.cell.classList.add("road");
     else if (char === "-1") this.cell.classList.add("road", dir1, dir2);
     else this.art.style.backgroundImage = `url('/assets/characters/pikachu_${char}.png')`;
   }
 
-  static observedAttributes = ["char", "dir1", "dir2"];
+  static observedAttributes = ["picked", "char", "dir1", "dir2"];
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name === "char" || name === "dir1" || name === "dir2") {
+    if (name === "picked" || name === "char" || name === "dir1" || name === "dir2") {
       this.render();
     }
-  }
-
-  select() {
-    this.cell.classList.add("selected");
-  }
-
-  deselect() {
-    this.cell.classList.remove("selected");
   }
 }

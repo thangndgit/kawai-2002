@@ -46,6 +46,9 @@ export class ScreenGame extends Screen {
   }
 
   connectedCallback() {
+    this.gameSheet.addEventListener("mtm-connect", (e) => {
+      this.gameStatus.addPoints(e.detail.point);
+    });
     this.show();
   }
 }
