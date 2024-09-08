@@ -21,10 +21,10 @@ export class TimerBar extends HTMLElement {
     const style = document.createElement("style");
     style.innerText = `
         .timer-bar {
-          // width: 2.5vw;
+          // width: 2.5dvw;
           aspect-ratio: 1/15;
           height: 100%;
-          border: 0.25vh solid #ad8;
+          border: 0.25dvh solid #ad8;
           background: linear-gradient(to top, #f00 0%, yellow 30%, #0f0 60%, #0f0 100%);
           display: flex;
           flex-direction: column;

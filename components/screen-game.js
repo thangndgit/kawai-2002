@@ -27,15 +27,15 @@ export class ScreenGame extends Screen {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 0 6vw;
+        padding: 0 6dvw;
       }
       .game-status {
         box-sizing: border-box;
         height: 100%;
-        padding: 4vh 0;
+        padding: 4dvh 0;
       }
       .game-sheet {
-        height: 100vh;
+        height: 100dvh;
         aspect-ratio: 72/55;
       }
     `;

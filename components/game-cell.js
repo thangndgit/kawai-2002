@@ -19,17 +19,17 @@ export class GameCell extends HTMLElement {
         width: 100%;
         aspect-ratio: 4/5;
         background: #f8f8f8;
-        border-radius: 0.75vh;
+        border-radius: 0.75dvh;
         border: 1px solid #999;
         position: relative;
-        box-shadow: 0.5vh 0.5vh 0px 0px #999;
+        box-shadow: 0.5dvh 0.5dvh 0px 0px #999;
         cursor: pointer;
         user-select: none;
         pointer-events: auto;
-        padding: 0 0.75vh;
+        padding: 0 0.75dvh;
       }
       .cell:hover, .cell.picked {
-        border: 0.4vh double #ff8d00;
+        border: 0.4dvh double #ff8d00;
       }
       .cell.selected {
         background: #dee2e6;
@@ -57,7 +57,7 @@ export class GameCell extends HTMLElement {
         top: 0;
         width: 0;
         height: 100%;
-        border-left: 0.4vh double #ff8d00;
+        border-left: 0.4dvh double #ff8d00;
         transform: translateX(-50%);
       }
       .road.left.right::before {
@@ -67,7 +67,7 @@ export class GameCell extends HTMLElement {
         top: 50%;
         width: 100%;
         height: 0;
-        border-top: 0.4vh double #ff8d00;
+        border-top: 0.4dvh double #ff8d00;
         transform: translateY(-50%);
       }
       .road.up.left::before {
@@ -77,7 +77,7 @@ export class GameCell extends HTMLElement {
         top: 0;
         width: 0;
         height: 50%;
-        border-left: 0.4vh double #ff8d00;
+        border-left: 0.4dvh double #ff8d00;
         transform: translateX(-50%);
       }
       .road.up.left::after {
@@ -87,7 +87,7 @@ export class GameCell extends HTMLElement {
         top: 50%;
         width: 50%;
         height: 0;
-        border-top: 0.4vh double #ff8d00;
+        border-top: 0.4dvh double #ff8d00;
         transform: translateY(-50%);
       }
       .road.down.right::before {
@@ -97,7 +97,7 @@ export class GameCell extends HTMLElement {
         top: 50%;
         width: 0;
         height: 50%;
-        border-left: 0.4vh double #ff8d00;
+        border-left: 0.4dvh double #ff8d00;
         transform: translateX(-50%);
       }
       .road.down.right::after {
@@ -107,7 +107,7 @@ export class GameCell extends HTMLElement {
         top: 50%;
         width: 50%;
         height: 0;
-        border-top: 0.4vh double #ff8d00;
+        border-top: 0.4dvh double #ff8d00;
         transform: translateY(-50%);
       }
       .road.up.right::before {
@@ -117,7 +117,7 @@ export class GameCell extends HTMLElement {
         top: 0;
         width: 0;
         height: 50%;
-        border-left: 0.4vh double #ff8d00;
+        border-left: 0.4dvh double #ff8d00;
         transform: translateX(-50%);
       }
       .road.up.right::after {
@@ -127,7 +127,7 @@ export class GameCell extends HTMLElement {
         top: 50%;
         width: 50%;
         height: 0;
-        border-top: 0.4vh double #ff8d00;
+        border-top: 0.4dvh double #ff8d00;
         transform: translateY(-50%);
       }
       .road.down.left::before {
@@ -137,7 +137,7 @@ export class GameCell extends HTMLElement {
         top: 50%;
         width: 0;
         height: 50%;
-        border-left: 0.4vh double #ff8d00;
+        border-left: 0.4dvh double #ff8d00;
         transform: translateX(-50%);
       }
       .road.down.left::after {
@@ -147,7 +147,7 @@ export class GameCell extends HTMLElement {
         top: 50%;
         width: 50%;
         height: 0;
-        border-top: 0.4vh double #ff8d00;
+        border-top: 0.4dvh double #ff8d00;
         transform: translateY(-50%);
       }
 

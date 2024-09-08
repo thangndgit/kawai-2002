@@ -18,14 +18,14 @@ export class ScreenHome extends Screen {
         display: flex;
         justify-content: center;
         align-items: end;
-        gap: 1vw;
+        gap: 1dvw;
         cursor: pointer;
         position: absolute;
-        left: 50vw;
-        bottom: 10vw;
-        width: 30vw;
+        left: 50dvw;
+        bottom: 10dvw;
+        width: 30dvw;
         transform: translateX(-50%);
-        border-bottom: 0.75vh solid #fff;
+        border-bottom: 0.75dvh solid #fff;
         transition: all 0.5s;
       }
 
@@ -34,7 +34,7 @@ export class ScreenHome extends Screen {
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
-        width: 15vw;
+        width: 15dvw;
         aspect-ratio: 3/2;
       }
 
@@ -44,11 +44,11 @@ export class ScreenHome extends Screen {
 
       #btn-start [text] {
         color: #fff;
-        font-size: 3vw;
+        font-size: 3dvw;
         font-weight: bold;
         transition: all 0.5s;
         text-align: center;
-        width: 15vw;
+        width: 15dvw;
       }
 
       #btn-start:hover {

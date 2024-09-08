@@ -31,11 +31,11 @@ export class GameStatus extends HTMLElement {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 4vh;
+        gap: 4dvh;
       }
       .lives, .points {
         color: #fff;
-        font-size: 4.5vh;
+        font-size: 4.5dvh;
         font-weight: bold;
         line-height: 1;
       }

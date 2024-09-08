@@ -5,8 +5,8 @@ html,
 body {
   margin: 0;
   overflow: hidden;
-  height: 100vh;
-  width: 100vw;
+  height: 100dvh;
+  width: 100dvw;
   position: relative;
   font-family: "Bungee", cursive;
   color: #334;
@@ -30,10 +30,10 @@ body {
 }
 #container #score {
   position: absolute;
-  top: 12.5vh;
+  top: 12.5dvh;
   width: 100%;
   text-align: center;
-  font-size: 10vh;
+  font-size: 10dvh;
   transition: transform 0.5s ease;
   transform: translatey(-500px);
 }
@@ -46,12 +46,12 @@ body {
 }
 #container .game-over {
   position: absolute;
-  top: 37.5vh;
+  top: 37.5dvh;
   left: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1vh;
+  gap: 1dvh;
   align-items: center;
   justify-content: center;
 }
@@ -59,7 +59,7 @@ body {
   transition: opacity 0.5s ease, transform 0.5s ease;
   opacity: 0;
   transform: translatey(-50px) scale(1);
-  max-width: 90vw;
+  max-width: 90dvw;
   margin: 0 auto;
   text-align: center;
   color: #334;
@@ -71,7 +71,7 @@ body {
 }
 #container .game-ready {
   position: absolute;
-  top: 20vh;
+  top: 20dvh;
   left: 50%;
   width: fit-content;
   transform: translateX(-50%);
@@ -89,7 +89,7 @@ body {
 #container #instructions {
   position: absolute;
   width: 100%;
-  top: 32.5vh;
+  top: 32.5dvh;
   left: 0;
   text-align: center;
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -110,7 +110,7 @@ body {
   transform: translatey(0);
 }
 #container.ended #score {
-  transform: translatey(6vh) scale(1.5);
+  transform: translatey(6dvh) scale(1.5);
 }
 #container.ended .game-over * {
   opacity: 1;
@@ -120,13 +120,13 @@ body {
   transition-delay: 0.3s;
 }
 #container #sound-button {
-  bottom: 1vh;
+  bottom: 1dvh;
 }
 #container #difficult-button {
-  bottom: calc(2vh + 50px);
+  bottom: calc(2dvh + 50px);
 }
 #container #stats-button {
-  bottom: calc(3vh + 100px);
+  bottom: calc(3dvh + 100px);
 }
 #container .app-button {
   position: fixed;
@@ -137,7 +137,7 @@ body {
   border-radius: 0.5rem;
   box-shadow: 0 0 10px 0px gray;
   opacity: 1;
-  left: 1vh;
+  left: 1dvh;
   animation: appear 0.5s linear;
   transition: opacity 0.5s linear, left 0.5s linear;
 }
@@ -157,10 +157,10 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  /* gap: 10vh; */
-  width: 100vw;
-  height: 100vh;
-  padding: 5vw;
+  /* gap: 10dvh; */
+  width: 100dvw;
+  height: 100dvh;
+  padding: 5dvw;
   background-color: rgba(255, 255, 255, 0.9);
   position: fixed;
   bottom: 0;
@@ -173,7 +173,7 @@ body {
 }
 #container #difficult-alert.hidden,
 #container #stats-alert.hidden {
-  bottom: -100vh;
+  bottom: -100dvh;
   opacity: 0;
 }
 #container #stats-close-button {
@@ -194,6 +194,6 @@ body {
   }
   to {
     opacity: 1;
-    left: 1vh;
+    left: 1dvh;
   }
 }

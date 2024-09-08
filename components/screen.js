@@ -14,8 +14,8 @@ export class Screen extends HTMLElement {
     const style = document.createElement("style");
     style.textContent = `
       .screen {
-        width: 100vw;
-        height: 100vh;
+        width: 100dvw;
+        height: 100dvh;
         position: absolute;
         top: 0;
         left: 0;
