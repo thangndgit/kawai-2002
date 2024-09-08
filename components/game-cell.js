@@ -1,4 +1,4 @@
-import { path } from "../utils/assets";
+import { path } from "../utils/assets.js";
 
 export class GameCell extends HTMLElement {
   constructor() {

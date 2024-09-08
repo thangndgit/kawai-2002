@@ -119,7 +119,10 @@ export class GameSheet extends HTMLElement {
         cellEl.classList.add("cell");
         cellEl.setAttribute("x", i);
         cellEl.setAttribute("y", j);
+
         cellEl.addEventListener("click", () => {
+          if (cellEl.getAttribute("char") === "-1") return;
+
           if (!this.#pickedCell1) {
             this.#pickedCell1 = cellEl;
             cellEl.setAttribute("picked", true);
@@ -132,6 +135,7 @@ export class GameSheet extends HTMLElement {
             this.#connectCells();
           }
         });
+
         rowArr.push(cellEl);
         rowEl.appendChild(cellEl);
       });

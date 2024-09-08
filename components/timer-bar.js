@@ -2,7 +2,7 @@ export class TimerBar extends HTMLElement {
   constructor() {
     super();
 
-    this._duration = this.getAttribute("duration") || 5000; // Total duration for the timer
+    this._duration = this.getAttribute("duration") || 5 * 50 * 1000; // Total duration for the timer
     this._remainingTime = this._duration; // To track remaining time
     this._elapsedTime = 0; // Time already passed when stopped
     this._isRunning = false; // To track if the timer is currently running
