@@ -51,6 +51,7 @@
   ],
   "start_url": "/kawai-2002/index.html",
   "display": "standalone",
+  "orientation": "landscape",
   "background_color": "#ffffff",
   "theme_color": "#2196F3"
 }
