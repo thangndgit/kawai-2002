@@ -1,15 +1,16 @@
 export class GameStatus extends HTMLElement {
+  #lives = 10;
+  #points = 0;
+
   constructor() {
     super();
 
     // Create elements
     this.lives = document.createElement("span");
     this.lives.classList.add("lives");
-    this.lives.innerText = "❤ " + (this.getAttribute("lives") || "10");
 
     this.points = document.createElement("span");
     this.points.classList.add("points");
-    this.points.innerText = this.getAttribute("points") || "0";
 
     this.timer = document.createElement("mtm-timer-bar");
     this.timer.classList.add("timer");
@@ -35,12 +36,11 @@ export class GameStatus extends HTMLElement {
       }
       .lives, .points {
         color: #fff;
+        width: 12dvh;
+        text-align: center;
         font-size: 4.5dvh;
         font-weight: bold;
         line-height: 1;
-      }
-      .points {
-        text-align: right;
       }
       .timer {
         height: 100%;
@@ -52,12 +52,23 @@ export class GameStatus extends HTMLElement {
     this.shadowRoot.appendChild(statusBar);
   }
 
+  connectedCallback() {
+    this.render();
+  }
+
+  render() {
+    this.lives.innerText = "❤ " + this.#lives;
+    this.points.innerText = this.#points;
+  }
+
   addPoints(points) {
-    this.points.innerText = Number(this.points.innerText) + points;
+    this.#points += points;
+    this.render();
   }
 
   addLives(lives) {
-    this.lives.innerText = Number(this.lives.innerText) + lives;
+    this.#lives += lives;
+    this.render();
   }
 
   startTimer() {

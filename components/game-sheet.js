@@ -167,8 +167,8 @@ export class GameSheet extends HTMLElement {
 
     // dispatch event increase point
     this.dispatchEvent(
-      new CustomEvent("mtm-connect", {
-        detail: { point: 10 },
+      new CustomEvent("mtm-change-point", {
+        detail: { point: 20 },
         bubbles: true,
         composed: true,
       })
@@ -180,7 +180,36 @@ export class GameSheet extends HTMLElement {
     //make cells disappear
     this.#sheetMtx[p1.x][p1.y] = -1;
     this.#sheetMtx[p2.x][p2.y] = -1;
-    this.render();
+
+    // check if finish level
+    const sheetSum = this.#sheetMtx.reduce((sum, row) => sum + row.reduce((sum, cell) => sum + cell + 1, 0), 0);
+    if (sheetSum === 0) {
+      this.dispatchEvent(
+        new CustomEvent("mtm-finish-level", {
+          detail: { live: 1 },
+          bubbles: true,
+          composed: true,
+        })
+      );
+    }
+
+    // check if there is any path left
+    else {
+      const anyPath = this.findPath();
+      if (!anyPath.length) {
+        this.#sheetMtx = this.#shuffleSheet(this.#sheetMtx);
+        this.dispatchEvent(
+          new CustomEvent("mtm-change-live", {
+            detail: { live: -1 },
+            bubbles: true,
+            composed: true,
+          })
+        );
+      }
+    }
+
+    // re- render
+    window.setTimeout(() => this.render(), 100);
   }
 
   #drawPath(points) {
@@ -209,7 +238,7 @@ export class GameSheet extends HTMLElement {
         window.setTimeout(() => {
           cell.removeAttribute("dir1");
           cell.removeAttribute("dir2");
-        }, 50);
+        }, 100);
       }
     }
     // vertical line
@@ -229,7 +258,7 @@ export class GameSheet extends HTMLElement {
         window.setTimeout(() => {
           cell.removeAttribute("dir1");
           cell.removeAttribute("dir2");
-        }, 50);
+        }, 100);
       }
     }
   }
@@ -278,6 +307,56 @@ export class GameSheet extends HTMLElement {
     });
 
     return sum === 0;
+  }
+
+  // check if can this point go out
+  isIntrovertPoint(p) {
+    const centerP = this.#sheetMtx[p.x][p.y];
+    const upP = this.#sheetMtx[p.x - 1][p.y];
+    const downP = this.#sheetMtx[p.x + 1][p.y];
+    const leftP = this.#sheetMtx[p.x][p.y - 1];
+    const rightP = this.#sheetMtx[p.x][p.y + 1];
+    if (centerP === upP || centerP === downP || centerP === leftP || centerP === rightP) return false;
+    if (upP === -1 || downP === -1 || leftP === -1 || rightP === -1) return false;
+    return true;
+  }
+
+  // find a random path
+  findPath() {
+    const mapPoints = {};
+    for (let i = 0; i < this.#charCount; i++) mapPoints[i] = [];
+
+    // get extrovert point and group them by type
+    for (let i = 1; i <= this.#sheetMtx.length - 2; i++) {
+      for (let j = 1; j <= this.#sheetMtx[i].length - 2; j++) {
+        const pointChar = this.#sheetMtx[i][j].toString();
+        if (pointChar === "-1") continue;
+
+        const point = { x: i, y: j };
+        if (!this.isIntrovertPoint(point)) {
+          mapPoints[pointChar].push(point);
+        }
+      }
+    }
+
+    // convert group object to array
+    const arrPoints = Object.keys(mapPoints)
+      .map((key) => mapPoints[key])
+      .filter((race) => race.length > 1);
+
+    // find if there is any path between 2 point in same type
+    for (let i = 0; i < arrPoints.length; i++) {
+      const points = arrPoints[i];
+
+      for (let j = 0; j < points.length; j++) {
+        for (let k = j + 1; k < points.length; k++) {
+          const path = this.getPath(points[j], points[k]);
+          if (path.length) return path;
+        }
+      }
+    }
+
+    return [];
   }
 
   // get path from point 1 to point 2 if exist

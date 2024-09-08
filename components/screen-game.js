@@ -46,8 +46,15 @@ export class ScreenGame extends Screen {
   }
 
   connectedCallback() {
-    this.gameSheet.addEventListener("mtm-connect", (e) => {
+    this.gameSheet.addEventListener("mtm-change-point", (e) => {
       this.gameStatus.addPoints(e.detail.point);
+    });
+    this.gameSheet.addEventListener("mtm-change-live", (e) => {
+      this.gameStatus.addLives(e.detail.live);
+    });
+    this.gameSheet.addEventListener("mtm-finish-level", (e) => {
+      this.gameStatus.addLives(e.detail.live);
+      window.alert("Congratulation");
     });
     this.show();
   }

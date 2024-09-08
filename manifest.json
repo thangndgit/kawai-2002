@@ -1,7 +1,7 @@
 {
-  "name": "Stop & Stack",
-  "short_name": "Stop N Stack",
-  "description": "Stack moving blocks to build the tallest tower in this addictive game.",
+  "name": "Kawai 2002",
+  "short_name": "Kawai 2002",
+  "description": "Connect pokemon with less than 3 lines.",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
@@ -49,7 +49,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/Stop-N-Stack/index.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2196F3"
