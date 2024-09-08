@@ -1,3 +1,4 @@
+import { path } from "../utils/assets.js";
 import { Screen } from "./screen.js";
 
 export class ScreenHome extends Screen {
@@ -8,7 +9,7 @@ export class ScreenHome extends Screen {
     const style = document.createElement("style");
     style.textContent = `
       .screen {
-        background-image: url("/assets/images/bg_home.jpg");
+        background-image: url("${path("/assets/images/bg_home.jpg")}");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -30,7 +31,7 @@ export class ScreenHome extends Screen {
       }
 
       #btn-start [gif] {
-        background-image: url("/assets/images/ani_pikachu.gif");
+        background-image: url("${path("/assets/images/ani_pikachu.gif")}");
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
