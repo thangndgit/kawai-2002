@@ -1,3 +1,5 @@
+import { path } from "../utils/assets";
+
 export class GameCell extends HTMLElement {
   constructor() {
     super();
@@ -38,7 +40,7 @@ export class GameCell extends HTMLElement {
         background-repeat: no-repeat;
         background-position: center;
       }
-      .road, .road:hover, .road.selected {
+      .road, .road:hover, .road.picked {
         background: transparent;
         border: none;
         border-radius:0;
@@ -171,7 +173,7 @@ export class GameCell extends HTMLElement {
     if (picked) this.cell.classList.add("picked");
     if (!char) this.cell.classList.add("road");
     else if (char === "-1") this.cell.classList.add("road", dir1, dir2);
-    else this.art.style.backgroundImage = `url('/assets/characters/pikachu_${char}.png')`;
+    else this.art.style.backgroundImage = `url('${path(`/assets/characters/pikachu_${char}.png`)}')`;
   }
 
   static observedAttributes = ["picked", "char", "dir1", "dir2"];
