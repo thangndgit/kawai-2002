@@ -209,7 +209,7 @@ export class GameSheet extends HTMLElement {
     }
 
     // re- render
-    window.setTimeout(() => this.render(), 100);
+    window.setTimeout(() => this.render(), 50);
   }
 
   #drawPath(points) {
@@ -238,7 +238,7 @@ export class GameSheet extends HTMLElement {
         window.setTimeout(() => {
           cell.removeAttribute("dir1");
           cell.removeAttribute("dir2");
-        }, 100);
+        }, 50);
       }
     }
     // vertical line
@@ -258,7 +258,7 @@ export class GameSheet extends HTMLElement {
         window.setTimeout(() => {
           cell.removeAttribute("dir1");
           cell.removeAttribute("dir2");
-        }, 100);
+        }, 50);
       }
     }
   }

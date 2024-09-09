@@ -8,7 +8,7 @@ export class GameCell extends HTMLElement {
     // html
     this.cell = document.createElement("div");
     this.cell.classList.add("cell");
-    if (isMobileDevice()) this.cell.classList.add("mobile");
+    if (isMobileDevice()) this.cell.style.aspectRatio = "1";
     this.art = document.createElement("div");
     this.art.classList.add("art");
     this.cell.appendChild(this.art);
@@ -29,9 +29,6 @@ export class GameCell extends HTMLElement {
         user-select: none;
         pointer-events: auto;
         padding: 0 0.75dvh;
-      }
-      .cell.mobile {
-        aspect-ratio: 1;
       }
       .cell:hover, .cell.picked {
         border: 0.4dvh double #ff8d00;
@@ -155,7 +152,6 @@ export class GameCell extends HTMLElement {
         border-top: 0.4dvh double #ff8d00;
         transform: translateY(-50%);
       }
-
     `;
 
     // add to shadow root
@@ -173,8 +169,7 @@ export class GameCell extends HTMLElement {
     const char = this.getAttribute("char");
     const dir1 = this.getAttribute("dir1");
     const dir2 = this.getAttribute("dir2");
-    this.cell.classList.remove("picked");
-    this.cell.classList.remove("road");
+    this.cell.className = "cell";
     if (picked) this.cell.classList.add("picked");
     if (!char) this.cell.classList.add("road");
     else if (char === "-1") this.cell.classList.add("road", dir1, dir2);
