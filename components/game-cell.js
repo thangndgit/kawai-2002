@@ -1,4 +1,5 @@
 import { path } from "../utils/assets.js";
+import { isMobileDevice } from "../utils/device.js";
 
 export class GameCell extends HTMLElement {
   constructor() {
@@ -7,6 +8,7 @@ export class GameCell extends HTMLElement {
     // html
     this.cell = document.createElement("div");
     this.cell.classList.add("cell");
+    if (isMobileDevice()) this.cell.classList.add("mobile");
     this.art = document.createElement("div");
     this.art.classList.add("art");
     this.cell.appendChild(this.art);
@@ -27,6 +29,9 @@ export class GameCell extends HTMLElement {
         user-select: none;
         pointer-events: auto;
         padding: 0 0.75dvh;
+      }
+      .cell.mobile {
+        aspect-ratio: 1;
       }
       .cell:hover, .cell.picked {
         border: 0.4dvh double #ff8d00;
@@ -168,8 +173,8 @@ export class GameCell extends HTMLElement {
     const char = this.getAttribute("char");
     const dir1 = this.getAttribute("dir1");
     const dir2 = this.getAttribute("dir2");
-    this.cell.classList = "";
-    this.cell.classList.add("cell");
+    this.cell.classList.remove("picked");
+    this.cell.classList.remove("road");
     if (picked) this.cell.classList.add("picked");
     if (!char) this.cell.classList.add("road");
     else if (char === "-1") this.cell.classList.add("road", dir1, dir2);

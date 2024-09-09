@@ -1,3 +1,4 @@
+import { isMobileDevice } from "../utils/device.js";
 import { Screen } from "./screen.js";
 
 export class ScreenGame extends Screen {
@@ -13,6 +14,7 @@ export class ScreenGame extends Screen {
 
     this.gameSheet = document.createElement("mtm-game-sheet");
     this.gameSheet.classList.add("game-sheet");
+    if (isMobileDevice()) this.gameSheet.classList.add("mobile");
 
     container.appendChild(this.gameStatus);
     container.appendChild(this.gameSheet);
@@ -37,6 +39,9 @@ export class ScreenGame extends Screen {
       .game-sheet {
         height: 100dvh;
         aspect-ratio: 72/55;
+      }
+      .game-sheet.mobile {
+        aspect-ratio: 18/11;
       }
     `;
 
