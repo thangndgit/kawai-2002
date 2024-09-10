@@ -18,10 +18,7 @@ export const path = (path) => {
 
 // ********************
 export const playSound = (path, volume = 1) => {
-  const isSoundOff = (localStorage.getItem(KEYS.isSoundOff) || "false") === "true";
-  if (!isSoundOff) {
-    const sound = new Audio(path);
-    sound.volume = volume;
-    sound.play();
-  }
+  const sound = new Audio(path);
+  sound.volume = volume;
+  sound.play();
 };

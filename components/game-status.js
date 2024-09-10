@@ -14,8 +14,7 @@ export class GameStatus extends HTMLElement {
 
     this.timer = document.createElement("mtm-timer-bar");
     this.timer.classList.add("timer");
-    this.timer.setAttribute("autostart", true);
-    this.timer.setAttribute("duration", this.getAttribute("timer-duration") || 10000);
+    this.timer.setAttribute("duration", 10 * 60 * 1000);
 
     // Create status bar container
     const statusBar = document.createElement("div");
@@ -57,7 +56,7 @@ export class GameStatus extends HTMLElement {
   }
 
   render() {
-    this.lives.innerText = "❤ " + this.#lives;
+    this.lives.innerText = "⚜ " + this.#lives;
     this.points.innerText = this.#points;
   }
 

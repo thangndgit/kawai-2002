@@ -1,8 +1,12 @@
 // ********************
-export const switchScreen = (screenId) => {
+export const switchScreen = (screenId, callback = () => {}) => {
   const allScreens = document.querySelectorAll("[id^=screen]");
   allScreens.forEach((screen) => {
-    screen.classList.remove("screen--show");
-    screen.id === screenId && screen.classList.add("screen--show");
+    screen.hide();
+
+    if (screen.id === screenId) {
+      screen.show();
+      callback(screen);
+    }
   });
 };

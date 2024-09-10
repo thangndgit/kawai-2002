@@ -1,4 +1,5 @@
 import { path } from "../utils/assets.js";
+import { switchScreen } from "../utils/screen.js";
 import { Screen } from "./screen.js";
 
 export class ScreenHome extends Screen {
@@ -76,7 +77,13 @@ export class ScreenHome extends Screen {
     this.screen.appendChild(this.buttonStart);
   }
 
-  // connectedCallback() {
-  //   this.show();
-  // }
+  connectedCallback() {
+    this.buttonStart.addEventListener("click", () => {
+      switchScreen("screen-game", (screenGame) => {
+        screenGame.gameStatus.startTimer();
+      });
+    });
+
+    this.show();
+  }
 }

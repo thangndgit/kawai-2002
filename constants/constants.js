@@ -1,4 +1,4 @@
-const SOUNDS = {
+export const SOUNDS = {
   score: [
     "assets/sounds/score.mp3",
     "assets/sounds/score-perfect-1.wav",
@@ -13,6 +13,10 @@ const SOUNDS = {
   miss: "assets/sounds/miss.mp3",
   breakRecord: "assets/sounds/break-record.mp3",
   click: "assets/sounds/click.wav",
+  BASE_CLICK: "/assets/sounds/base_click.mp3",
+  WIDE_CLICK: "/assets/sounds/wide_click.mp3",
+  DUMB_CLICK: "/assets/sounds/dumb_click.mp3",
+  UNDO_CLICK: "/assets/sounds/undo_click.mp3",
 };
 
 const KEYS = {

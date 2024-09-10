@@ -30,6 +30,7 @@ export class ScreenGame extends Screen {
         justify-content: center;
         align-items: center;
         padding: 0 6dvw;
+        gap: 2dvh;
       }
       .game-status {
         box-sizing: border-box;
@@ -62,6 +63,5 @@ export class ScreenGame extends Screen {
       this.gameStatus.addLives(e.detail.live);
       window.alert("Congratulation");
     });
-    this.show();
   }
 }

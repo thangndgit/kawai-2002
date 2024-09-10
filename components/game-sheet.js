@@ -1,3 +1,6 @@
+import { SOUNDS } from "../constants/constants.js";
+import { playSound } from "../utils/assets.js";
+
 export class GameSheet extends HTMLElement {
   #sheetCol;
   #sheetRow;
@@ -123,13 +126,20 @@ export class GameSheet extends HTMLElement {
         cellEl.addEventListener("click", () => {
           if (cellEl.getAttribute("char") === "-1") return;
 
+          // select first
           if (!this.#pickedCell1) {
             this.#pickedCell1 = cellEl;
             cellEl.setAttribute("picked", true);
-          } else if (this.#pickedCell1 === cellEl) {
+            playSound(SOUNDS.BASE_CLICK);
+          }
+          // deselect first
+          else if (this.#pickedCell1 === cellEl) {
             this.#pickedCell1 = null;
             cellEl.removeAttribute("picked");
-          } else if (!this.#pickedCell2) {
+            playSound(SOUNDS.UNDO_CLICK);
+          }
+          // select second
+          else if (!this.#pickedCell2) {
             this.#pickedCell2 = cellEl;
             cellEl.setAttribute("picked", true);
             this.#connectCells();
@@ -148,8 +158,6 @@ export class GameSheet extends HTMLElement {
   }
 
   #connectCells() {
-    let needShuffle = false;
-    let levelFinished = false;
     const p1 = {
       x: Number(this.#pickedCell1.getAttribute("x")),
       y: Number(this.#pickedCell1.getAttribute("y")),
@@ -165,9 +173,13 @@ export class GameSheet extends HTMLElement {
     this.#pickedCell2 = null;
 
     // if not match
-    if (!path.length) return;
+    if (!path.length) {
+      playSound(SOUNDS.DUMB_CLICK);
+      return;
+    }
 
     // draw path between 2 points
+    playSound(SOUNDS.WIDE_CLICK);
     this.#drawPath(path);
 
     //make cells disappear
