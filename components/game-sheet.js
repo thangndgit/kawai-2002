@@ -148,6 +148,8 @@ export class GameSheet extends HTMLElement {
   }
 
   #connectCells() {
+    let needShuffle = false;
+    let levelFinished = false;
     const p1 = {
       x: Number(this.#pickedCell1.getAttribute("x")),
       y: Number(this.#pickedCell1.getAttribute("y")),
@@ -164,15 +166,6 @@ export class GameSheet extends HTMLElement {
 
     // if not match
     if (!path.length) return;
-
-    // dispatch event increase point
-    this.dispatchEvent(
-      new CustomEvent("mtm-change-point", {
-        detail: { point: 20 },
-        bubbles: true,
-        composed: true,
-      })
-    );
 
     // draw path between 2 points
     this.#drawPath(path);
@@ -209,7 +202,16 @@ export class GameSheet extends HTMLElement {
     }
 
     // re- render
-    window.setTimeout(() => this.render(), 50);
+    window.setTimeout(() => this.render(), 100);
+
+    // dispatch event increase point
+    this.dispatchEvent(
+      new CustomEvent("mtm-change-point", {
+        detail: { point: 20 },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   #drawPath(points) {
@@ -238,7 +240,7 @@ export class GameSheet extends HTMLElement {
         window.setTimeout(() => {
           cell.removeAttribute("dir1");
           cell.removeAttribute("dir2");
-        }, 50);
+        }, 100);
       }
     }
     // vertical line
