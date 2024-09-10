@@ -11,14 +11,14 @@ export const isInDeployMode = () => {
 };
 
 // ********************
-export const path = (path) => {
-  if (isInDeployMode()) return "/kawai-2002" + path;
-  return path;
+export const assets = (path) => {
+  if (isInDeployMode()) return "/kawai-2002/assets" + path;
+  return "/assets" + path;
 };
 
 // ********************
 export const playSound = (path, volume = 1) => {
-  const sound = new Audio(path);
+  const sound = new Audio(assets(path));
   sound.volume = volume;
   sound.play();
 };

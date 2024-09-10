@@ -13,10 +13,10 @@ export const SOUNDS = {
   miss: "assets/sounds/miss.mp3",
   breakRecord: "assets/sounds/break-record.mp3",
   click: "assets/sounds/click.wav",
-  BASE_CLICK: "/assets/sounds/base_click.mp3",
-  WIDE_CLICK: "/assets/sounds/wide_click.mp3",
-  DUMB_CLICK: "/assets/sounds/dumb_click.mp3",
-  UNDO_CLICK: "/assets/sounds/undo_click.mp3",
+  BASE_CLICK: "/sounds/base_click.mp3",
+  WIDE_CLICK: "/sounds/wide_click.mp3",
+  DUMB_CLICK: "/sounds/dumb_click.mp3",
+  UNDO_CLICK: "/sounds/undo_click.mp3",
 };
 
 const KEYS = {

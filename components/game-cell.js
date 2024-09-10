@@ -1,4 +1,4 @@
-import { path } from "../utils/assets.js";
+import { assets } from "../utils/assets.js";
 import { isMobileDevice } from "../utils/device.js";
 
 export class GameCell extends HTMLElement {
@@ -174,7 +174,7 @@ export class GameCell extends HTMLElement {
     if (picked) this.cell.classList.add("picked");
     if (!char) this.cell.classList.add("road");
     else if (char === "-1") this.cell.classList.add("road", dir1, dir2);
-    else this.art.style.backgroundImage = `url('${path(`/assets/characters/pikachu_${char}.png`)}')`;
+    else this.art.style.backgroundImage = `url('${assets(`/characters/pikachu_${char}.png`)}')`;
   }
 
   static observedAttributes = ["picked", "char", "dir1", "dir2"];
