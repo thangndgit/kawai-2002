@@ -12,6 +12,7 @@ export class GameCell extends HTMLElement {
     this.art = document.createElement("div");
     this.art.classList.add("art");
     this.cell.appendChild(this.art);
+    const isMobile = isMobileDevice();
 
     // css
     const style = document.createElement("style");
@@ -30,7 +31,7 @@ export class GameCell extends HTMLElement {
         pointer-events: auto;
         padding: 0.75dvh;
       }
-      .cell:hover, .cell.picked {
+      ${!isMobile ? ".cell:hover," : ""} .cell.picked {
         padding: 0.25dvh;
         border: 0.6dvh double #ff8d00;
       }

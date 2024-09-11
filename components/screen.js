@@ -17,7 +17,7 @@ export class Screen extends HTMLElement {
         width: 100dvw;
         height: 100dvh;
         position: absolute;
-        top: 0;
+        bottom: -100%;
         left: 0;
         opacity: 0;
         z-index: -1;
@@ -25,6 +25,7 @@ export class Screen extends HTMLElement {
       }
       .screen--show {
         opacity: 1;
+        bottom: 0;
         z-index: 999;
       }
     `;

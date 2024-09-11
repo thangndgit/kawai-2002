@@ -23,9 +23,9 @@ export class ScreenHome extends Screen {
         gap: 1dvw;
         cursor: pointer;
         position: absolute;
-        left: 50dvw;
-        bottom: 10dvw;
-        width: 30dvw;
+        left: 50%;
+        bottom: 20dvh;
+        width: 50dvh;
         transform: translateX(-50%);
         border-bottom: 0.75dvh solid #fff;
         transition: all 0.5s;
@@ -36,7 +36,7 @@ export class ScreenHome extends Screen {
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
-        width: 15dvw;
+        width: 100%;
         aspect-ratio: 3/2;
       }
 
