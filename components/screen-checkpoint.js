@@ -2,7 +2,7 @@ import { assets } from "../utils/assets.js";
 import { switchScreen } from "../utils/screen.js";
 import { Screen } from "./screen.js";
 
-export class ScreenHome extends Screen {
+export class ScreenCheckpoint extends Screen {
   constructor() {
     super();
 

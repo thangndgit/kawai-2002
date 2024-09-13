@@ -9,6 +9,8 @@ export class GameSheet extends HTMLElement {
   #cells;
   #pickedCell1;
   #pickedCell2;
+  #level;
+  #rule;
 
   constructor() {
     super();
@@ -182,9 +184,13 @@ export class GameSheet extends HTMLElement {
     playSound(SOUNDS.WIDE_CLICK);
     this.#drawPath(path);
 
-    //make cells disappear
+    // make cells disappear
     this.#sheetMtx[p1.x][p1.y] = -1;
     this.#sheetMtx[p2.x][p2.y] = -1;
+
+    // apply level rule
+    this.#fillHole(p1.x, p1.y, this.#rule);
+    this.#fillHole(p2.x, p2.y, this.#rule);
 
     // check if finish level
     const sheetSum = this.#sheetMtx.reduce((sum, row) => sum + row.reduce((sum, cell) => sum + cell + 1, 0), 0);
@@ -277,17 +283,42 @@ export class GameSheet extends HTMLElement {
     }
   }
 
-  render() {
-    if (!this.#cells) this.#cells = this.#initCells();
-    this.#cells.forEach((row, i) => {
-      row.forEach((cell, j) => {
-        cell.setAttribute("char", this.#sheetMtx[i][j]);
-      });
-    });
-  }
+  #fillHole(x, y, rule) {
+    if (x < 1 || y < 1 || x > this.#sheetRow - 2 || y > this.#sheetCol - 2 || this.#sheetMtx[x][y] !== -1) return;
 
-  connectedCallback() {
-    this.render();
+    let newX = x;
+    let newY = y;
+
+    // cell around move up
+    if (rule(x + 1, y) === "move_up") {
+      newX++;
+      if (this.#sheetMtx[newX][newY] === -1 && rule(x + 2, y) === "move_up") newX++;
+    }
+    // cell around move down
+    else if (rule(x - 1, y) === "move_down") {
+      newX--;
+      if (this.#sheetMtx[newX][newY] === -1 && rule(x - 2, y) === "move_down") newX--;
+    }
+    // cell around move left
+    else if (rule(x, y + 1) === "move_left") {
+      newY++;
+      if (this.#sheetMtx[newX][newY] === -1 && rule(x, y + 2) === "move_left") newY++;
+    }
+    // cell around move right
+    else if (rule(x, y - 1) === "move_right") {
+      newY--;
+      if (this.#sheetMtx[newX][newY] === -1 && rule(x, y - 2) === "move_right") newY--;
+    }
+
+    if (x === newX && y === newY) return;
+
+    if (this.#sheetMtx?.[newX]?.[newY] !== undefined) {
+      this.#sheetMtx[x][y] = this.#sheetMtx[newX][newY];
+      this.#sheetMtx[newX][newY] = -1;
+      return this.#fillHole(newX, newY, rule);
+    }
+
+    return;
   }
 
   getMinMax(a, b, converter = (data) => data) {
@@ -371,6 +402,15 @@ export class GameSheet extends HTMLElement {
     }
 
     return [];
+  }
+
+  // show suggestion
+  suggestPath() {
+    const path = this.findPath();
+    const { x: x1, y: y1 } = path[0];
+    const { x: x2, y: y2 } = path[path.length - 1];
+    this.#cells[x1][y1].setAttribute("picked", true);
+    this.#cells[x2][y2].setAttribute("picked", true);
   }
 
   // get path from point 1 to point 2 if exist
@@ -460,5 +500,64 @@ export class GameSheet extends HTMLElement {
     }
 
     return [];
+  }
+
+  render() {
+    if (!this.#cells) this.#cells = this.#initCells();
+    this.#cells.forEach((row, i) => {
+      row.forEach((cell, j) => {
+        cell.setAttribute("char", this.#sheetMtx[i][j]);
+      });
+    });
+  }
+
+  connectedCallback() {
+    this.#level = this.getAttribute("level") || 1;
+    const ruleId = (Number(this.#level) % 16) + 1;
+
+    this.#rule = {
+      1: () => "stand_still",
+      2: () => "move_down",
+      3: () => "move_up",
+      4: () => "move_right",
+      5: () => "move_left",
+      6: (_, y) => (y <= 8 ? "move_left" : "move_right"),
+      7: (_, y) => (y <= 8 ? "move_right" : "move_left"),
+      8: (x) => (x <= 4 ? "move_up" : x >= 6 ? "move_down" : "stay_still"),
+      9: (x) => (x <= 4 ? "move_down" : x >= 6 ? "move_up" : "stay_still"),
+      10: (_, y) => (y <= 8 ? "move_up" : "move_down"),
+      11: (_, y) => (y <= 8 ? "move_down" : "move_up"),
+      12: (x) => (x <= 4 ? "move_left" : x >= 6 ? "move_right" : "stay_still"),
+      13: (x) => (x <= 4 ? "move_right" : x >= 6 ? "move_left" : "stay_still"),
+      14: (_, y) => (y % 2 === 0 ? "move_up" : "move_down"),
+      15: (x) => (x % 2 === 0 ? "move_left" : "move_right"),
+      16: (x, y) => {
+        if (x <= 4 && y <= 8) return "move_up";
+        if (x <= 4 && y >= 9) return "move_right";
+        if (x >= 6 && y >= 9) return "move_down";
+        if (x >= 6 && y <= 8) return "move_left";
+        return "stand_still";
+      },
+    }[ruleId];
+
+    this.render();
+  }
+
+  static observedAttributes = ["level"];
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "level") {
+      this.#level = this.getAttribute("level") || 1;
+      this.#rule = {
+        1: () => "stand_still",
+        2: () => "move_down",
+        3: () => "move_up",
+        4: () => "move_right",
+        5: () => "move_left",
+        6: (x) => (x <= 8 ? "move_left" : "move_right"),
+        7: (x) => (x <= 8 ? "move_right" : "move_left"),
+      }[this.#level];
+      this.render();
+    }
   }
 }

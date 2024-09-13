@@ -78,7 +78,7 @@ export class GameStatus extends HTMLElement {
     this.timer.stop();
   }
 
-  resetTimer(duration) {
-    this.timer.reset(duration);
+  resetTimer() {
+    this.timer.reset();
   }
 }

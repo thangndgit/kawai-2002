@@ -5,6 +5,9 @@ export class ScreenGame extends Screen {
   constructor() {
     super();
 
+    // var
+    this.level = 1;
+
     // html
     const container = document.createElement("div");
     container.classList.add("container");
@@ -16,8 +19,19 @@ export class ScreenGame extends Screen {
     this.gameSheet.classList.add("game-sheet");
     if (isMobileDevice()) this.gameSheet.classList.add("mobile");
 
+    this.gameActions = document.createElement("div");
+    this.gameActions.classList.add("game-actions");
+    this.levelText = document.createElement("span");
+    this.levelText.classList.add("level");
+    this.suggest = document.createElement("span");
+    this.suggest.classList.add("suggest");
+    this.suggest.innerText = "SUGGEST";
+    this.gameActions.appendChild(this.levelText);
+    this.gameActions.appendChild(this.suggest);
+
     container.appendChild(this.gameStatus);
     container.appendChild(this.gameSheet);
+    container.appendChild(this.gameActions);
 
     // css
     const style = document.createElement("style");
@@ -45,6 +59,26 @@ export class ScreenGame extends Screen {
       .game-sheet.mobile {
         aspect-ratio: 18/11;
       }
+      .game-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2vh;
+      }
+      .game-actions .level {
+        font-size: 3vh;
+        color: white;
+        font-weight: bold;
+      }
+      .game-actions .suggest {
+        background: white;
+        padding: 1dvh 2dvh;
+        border-radius: 1dvh;
+        cursor:  pointer;
+      }
+      .game-actions .suggest:hover {
+        opacity: 0.75;
+      }
     `;
 
     // add to shadow root
@@ -53,6 +87,8 @@ export class ScreenGame extends Screen {
   }
 
   connectedCallback() {
+    this.gameSheet.setAttribute("level", this.level);
+
     this.gameSheet.addEventListener("mtm-change-point", (e) => {
       this.gameStatus.addPoints(e.detail.point);
     });
@@ -60,8 +96,23 @@ export class ScreenGame extends Screen {
       this.gameStatus.addLives(e.detail.live);
     });
     this.gameSheet.addEventListener("mtm-finish-level", (e) => {
+      this.level++;
       this.gameStatus.addLives(e.detail.live);
-      window.alert("Congratulation");
+      this.gameStatus.resetTimer();
+      this.gameStatus.startTimer();
+      this.gameSheet.setAttribute("level", this.level);
+      this.render();
     });
+    this.suggest.addEventListener("click", () => {
+      this.gameSheet.suggestPath();
+    });
+
+    this.show();
+    this.render();
+    this.gameStatus.startTimer();
+  }
+
+  render() {
+    this.levelText.innerText = `LEVEL ${this.level}`;
   }
 }
