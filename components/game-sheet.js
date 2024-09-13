@@ -557,6 +557,7 @@ export class GameSheet extends HTMLElement {
         6: (x) => (x <= 8 ? "move_left" : "move_right"),
         7: (x) => (x <= 8 ? "move_right" : "move_left"),
       }[this.#level];
+      this.#sheetMtx = this.#initSheetMtx();
       this.render();
     }
   }
