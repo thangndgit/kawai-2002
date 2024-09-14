@@ -548,15 +548,32 @@ export class GameSheet extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "level") {
       this.#level = this.getAttribute("level") || 1;
+      const ruleId = (Number(this.#level) % 16) + 1;
+
       this.#rule = {
         1: () => "stand_still",
         2: () => "move_down",
         3: () => "move_up",
         4: () => "move_right",
         5: () => "move_left",
-        6: (x) => (x <= 8 ? "move_left" : "move_right"),
-        7: (x) => (x <= 8 ? "move_right" : "move_left"),
-      }[this.#level];
+        6: (_, y) => (y <= 8 ? "move_left" : "move_right"),
+        7: (_, y) => (y <= 8 ? "move_right" : "move_left"),
+        8: (x) => (x <= 4 ? "move_up" : x >= 6 ? "move_down" : "stay_still"),
+        9: (x) => (x <= 4 ? "move_down" : x >= 6 ? "move_up" : "stay_still"),
+        10: (_, y) => (y <= 8 ? "move_up" : "move_down"),
+        11: (_, y) => (y <= 8 ? "move_down" : "move_up"),
+        12: (x) => (x <= 4 ? "move_left" : x >= 6 ? "move_right" : "stay_still"),
+        13: (x) => (x <= 4 ? "move_right" : x >= 6 ? "move_left" : "stay_still"),
+        14: (_, y) => (y % 2 === 0 ? "move_up" : "move_down"),
+        15: (x) => (x % 2 === 0 ? "move_left" : "move_right"),
+        16: (x, y) => {
+          if (x <= 4 && y <= 8) return "move_up";
+          if (x <= 4 && y >= 9) return "move_right";
+          if (x >= 6 && y >= 9) return "move_down";
+          if (x >= 6 && y <= 8) return "move_left";
+          return "stand_still";
+        },
+      }[ruleId];
       this.#sheetMtx = this.#initSheetMtx();
       this.render();
     }
