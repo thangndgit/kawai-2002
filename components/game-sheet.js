@@ -421,47 +421,38 @@ export class GameSheet extends HTMLElement {
     }
   }
 
-  #fillHole(x, y, rule) {
+  #fillHole(x, y, rule, depth = 0) {
     if (
       x < 1 ||
       y < 1 ||
       x > this.#sheetRow - 2 ||
       y > this.#sheetCol - 2 ||
       this.#sheetMtx[x][y] !== -1 ||
-      rule(x, y) === "stand_still"
+      rule(x, y) === "stand_still" ||
+      depth > 1
     )
       return;
 
     let newX = x;
     let newY = y;
 
-    // cell around move up
-    if (rule(x + 1, y) === "move_up") {
-      newX++;
-      if (this.#sheetMtx[newX][newY] === -1) this.#fillHole(newX, newY, rule);
-    }
-    // cell around move down
-    else if (rule(x - 1, y) === "move_down") {
-      newX--;
-      if (this.#sheetMtx[newX][newY] === -1) this.#fillHole(newX, newY, rule);
-    }
-    // cell around move left
-    else if (rule(x, y + 1) === "move_left") {
-      newY++;
-      if (this.#sheetMtx[newX][newY] === -1) this.#fillHole(newX, newY, rule);
-    }
-    // cell around move right
-    else if (rule(x, y - 1) === "move_right") {
-      newY--;
-      if (this.#sheetMtx[newX][newY] === -1) this.#fillHole(newX, newY, rule);
-    }
+    // get coordinate of next cell
+    if (rule(x + 1, y) === "move_up") newX++;
+    else if (rule(x - 1, y) === "move_down") newX--;
+    else if (rule(x, y + 1) === "move_left") newY++;
+    else if (rule(x, y - 1) === "move_right") newY--;
 
     if (x === newX && y === newY) return;
+
+    if (this.#sheetMtx[newX][newY] === -1) {
+      depth++;
+      this.#fillHole(newX, newY, rule, depth);
+    }
 
     if (this.#sheetMtx?.[newX]?.[newY] !== undefined) {
       this.#sheetMtx[x][y] = this.#sheetMtx[newX][newY];
       this.#sheetMtx[newX][newY] = -1;
-      return this.#fillHole(newX, newY, rule);
+      return this.#fillHole(newX, newY, rule, depth);
     }
 
     return;
