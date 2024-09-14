@@ -64,11 +64,13 @@ export class ScreenGame extends Screen {
         flex-direction: column;
         align-items: center;
         gap: 2vh;
+        z-index: 1;
       }
       .game-actions .level {
         font-size: 3vh;
         color: white;
         font-weight: bold;
+        cursor: pointer;
       }
       .game-actions .suggest {
         background: white;
@@ -98,6 +100,13 @@ export class ScreenGame extends Screen {
     this.gameSheet.addEventListener("mtm-finish-level", (e) => {
       this.level++;
       this.gameStatus.addLives(e.detail.live);
+      this.gameStatus.resetTimer();
+      this.gameStatus.startTimer();
+      this.gameSheet.setAttribute("level", this.level);
+      this.render();
+    });
+    this.levelText.addEventListener("click", () => {
+      this.level++;
       this.gameStatus.resetTimer();
       this.gameStatus.startTimer();
       this.gameSheet.setAttribute("level", this.level);
