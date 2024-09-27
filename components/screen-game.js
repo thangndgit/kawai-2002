@@ -54,7 +54,7 @@ export class ScreenGame extends Screen {
       .game-sheet {
         height: 100dvh;
         aspect-ratio: 72/55;
-        transform: scale(calc(12/11));
+        transform: scale(1.08);
       }
       .game-sheet.mobile {
         aspect-ratio: 18/11;

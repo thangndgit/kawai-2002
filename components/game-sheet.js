@@ -27,20 +27,20 @@ export class GameSheet extends HTMLElement {
       4: () => "move_right",
       5: () => "move_left",
 
-      6: (_, y) => (y <= 8 ? "move_left" : "move_right"),
-      7: (_, y) => (y <= 8 ? "move_right" : "move_left"),
+      6: (_, y) => (y <= 8 ? "move_left" : y >= 9 ? "move_right" : "stand_still"),
+      7: (_, y) => (y < 8 ? "move_left" : y > 9 ? "move_right" : "stand_still"),
       8: (x) => (x <= 4 ? "move_up" : x >= 6 ? "move_down" : "stand_still"),
-      9: (x) => (x <= 4 ? "move_down" : x >= 6 ? "move_up" : "stand_still"),
+      9: (x) => (x < 4 ? "move_down" : x > 6 ? "move_up" : "stand_still"),
 
       10: (_, y) => (y <= 8 ? "move_up" : "move_down"),
       11: (_, y) => (y % 2 === 0 ? "move_up" : "move_down"),
       12: (x) => (x <= 4 ? "move_left" : x >= 6 ? "move_right" : "stand_still"),
       13: (x) => (x % 2 === 0 ? "move_left" : "move_right"),
 
-      14: (_, y) => (y <= 8 ? "move_up" : "move_right"),
-      15: (_, y) => (y <= 8 ? "move_down" : "move_left"),
+      14: (_, y) => (y <= 8 ? "move_up" : y >= 9 ? "move_right" : "stand_still"),
+      15: (_, y) => (y <= 8 ? "move_down" : y > 9 ? "move_left" : "stand_still"),
       16: (x) => (x <= 4 ? "move_up" : x >= 6 ? "move_right" : "stand_still"),
-      17: (x) => (x <= 4 ? "move_down" : x >= 6 ? "move_left" : "stand_still"),
+      17: (x) => (x < 4 ? "move_down" : x >= 6 ? "move_left" : "stand_still"),
 
       18: (x, y) => {
         if (y <= 8) return "move_left";
@@ -49,9 +49,9 @@ export class GameSheet extends HTMLElement {
         return "stand_still";
       },
       19: (x, y) => {
-        if (y <= 8) return "move_right";
-        if (y >= 9 && x <= 4) return "move_down";
-        if (y >= 9 && x >= 6) return "move_up";
+        if (y < 8) return "move_right";
+        if (y >= 9 && x < 4) return "move_down";
+        if (y >= 9 && x > 6) return "move_up";
         return "stand_still";
       },
       20: (x, y) => {
@@ -61,9 +61,9 @@ export class GameSheet extends HTMLElement {
         return "stand_still";
       },
       21: (x, y) => {
-        if (x <= 4) return "move_down";
-        if (x >= 6 && y <= 8) return "move_right";
-        if (x >= 6 && y >= 9) return "move_left";
+        if (x < 4) return "move_down";
+        if (x >= 6 && y < 8) return "move_right";
+        if (x >= 6 && y > 9) return "move_left";
         return "stand_still";
       },
 
@@ -75,10 +75,10 @@ export class GameSheet extends HTMLElement {
         return "stand_still";
       },
       23: (x, y) => {
-        if (x <= 4 && y <= 8) return "move_down";
-        if (x <= 4 && y >= 9) return "move_left";
-        if (x >= 6 && y >= 9) return "move_up";
-        if (x >= 6 && y <= 8) return "move_right";
+        if (x < 4 && y <= 8) return "move_down";
+        if (x <= 4 && y > 9) return "move_left";
+        if (x > 6 && y >= 9) return "move_up";
+        if (x >= 6 && y < 8) return "move_right";
         return "stand_still";
       },
 
@@ -124,7 +124,7 @@ export class GameSheet extends HTMLElement {
           (x === 2 && 1 <= y && y <= 14) ||
           (x === 3 && 2 <= y && y <= 13) ||
           (x === 4 && 3 <= y && y <= 12) ||
-          (x === 5 && 4 <= y && y <= 12)
+          (x === 5 && 4 <= y && y <= 11)
         )
           return "move_right";
 
@@ -370,15 +370,31 @@ export class GameSheet extends HTMLElement {
     );
   }
 
-  #drawPath(points) {
+  #drawPath(points, willRemove = true) {
+    const cells = [];
+
     for (let i = 1; i < points.length; i++) {
       const startP = points[i - 1];
       const endP = points[i];
-      this.#drawLine(startP, endP);
+      this.#drawLine(startP, endP, cells);
+    }
+
+    if (willRemove) {
+      const promises = cells.map((cell) => {
+        return new Promise((resolve) => {
+          window.setTimeout(() => {
+            cell.removeAttribute("dir1");
+            cell.removeAttribute("dir2");
+            resolve();
+          }, 100);
+        });
+      });
+
+      Promise.all(promises);
     }
   }
 
-  #drawLine(p1, p2) {
+  #drawLine(p1, p2, cells) {
     // horizontal line
     if (p1.x === p2.x) {
       const Y = this.getMinMax(p1.y, p2.y);
@@ -393,10 +409,7 @@ export class GameSheet extends HTMLElement {
           cell.setAttribute("dir2", "right");
         }
 
-        window.setTimeout(() => {
-          cell.removeAttribute("dir1");
-          cell.removeAttribute("dir2");
-        }, 100);
+        cells.push(cell);
       }
     }
     // vertical line
@@ -413,10 +426,7 @@ export class GameSheet extends HTMLElement {
           cell.setAttribute("dir2", "down");
         }
 
-        window.setTimeout(() => {
-          cell.removeAttribute("dir1");
-          cell.removeAttribute("dir2");
-        }, 50);
+        cells.push(cell);
       }
     }
   }
@@ -548,6 +558,7 @@ export class GameSheet extends HTMLElement {
     const { x: x2, y: y2 } = path[path.length - 1];
     this.#cells[x1][y1].setAttribute("picked", true);
     this.#cells[x2][y2].setAttribute("picked", true);
+    this.#drawPath(path, false);
     playSound(SOUNDS.SUGGEST_PAIR);
   }
 
