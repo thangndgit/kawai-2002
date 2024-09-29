@@ -371,7 +371,7 @@ export class GameSheet extends HTMLElement {
   }
 
   #drawPath(points, willRemove = true) {
-    const cells = [];
+    let cells = [];
 
     for (let i = 1; i < points.length; i++) {
       const startP = points[i - 1];
@@ -380,6 +380,8 @@ export class GameSheet extends HTMLElement {
     }
 
     if (willRemove) {
+      cells = [...new Set(cells)];
+
       const promises = cells.map((cell) => {
         return new Promise((resolve) => {
           window.setTimeout(() => {
@@ -398,15 +400,19 @@ export class GameSheet extends HTMLElement {
     // horizontal line
     if (p1.x === p2.x) {
       const Y = this.getMinMax(p1.y, p2.y);
+
       for (let i = Y.min; i <= Y.max; i++) {
         const cell = this.#cells[p1.x][i];
-        if (i === Y.min)
-          cell.getAttribute("dir1") ? cell.setAttribute("dir2", "right") : cell.setAttribute("dir1", "right");
-        else if (i === Y.max)
-          cell.getAttribute("dir1") ? cell.setAttribute("dir2", "left") : cell.setAttribute("dir1", "left");
-        else {
-          cell.setAttribute("dir1", "left");
-          cell.setAttribute("dir2", "right");
+
+        if (!cell.getAttribute("dir1") || !cell.getAttribute("dir2")) {
+          if (i === Y.min)
+            cell.getAttribute("dir1") ? cell.setAttribute("dir2", "right") : cell.setAttribute("dir1", "right");
+          else if (i === Y.max)
+            cell.getAttribute("dir1") ? cell.setAttribute("dir2", "left") : cell.setAttribute("dir1", "left");
+          else {
+            cell.setAttribute("dir1", "left");
+            cell.setAttribute("dir2", "right");
+          }
         }
 
         cells.push(cell);
@@ -417,13 +423,16 @@ export class GameSheet extends HTMLElement {
       const X = this.getMinMax(p1.x, p2.x);
       for (let i = X.min; i <= X.max; i++) {
         const cell = this.#cells[i][p1.y];
-        if (i === X.min)
-          cell.getAttribute("dir1") ? cell.setAttribute("dir2", "down") : cell.setAttribute("dir1", "down");
-        else if (i === X.max)
-          cell.getAttribute("dir1") ? cell.setAttribute("dir2", "up") : cell.setAttribute("dir1", "up");
-        else {
-          cell.setAttribute("dir1", "up");
-          cell.setAttribute("dir2", "down");
+
+        if (!cell.getAttribute("dir1") || !cell.getAttribute("dir2")) {
+          if (i === X.min)
+            cell.getAttribute("dir1") ? cell.setAttribute("dir2", "down") : cell.setAttribute("dir1", "down");
+          else if (i === X.max)
+            cell.getAttribute("dir1") ? cell.setAttribute("dir2", "up") : cell.setAttribute("dir1", "up");
+          else {
+            cell.setAttribute("dir1", "up");
+            cell.setAttribute("dir2", "down");
+          }
         }
 
         cells.push(cell);

@@ -21,15 +21,25 @@
     <main id="container">
       <mtm-screen-home id="screen-home"></mtm-screen-home>
       <mtm-screen-game id="screen-game"></mtm-screen-game>
+      <mtm-screen-install id="screen-install"></mtm-screen-install>
     </main>
 
-    <!-- for install app - do not remove it -->
-    <button id="install-button" hidden></button>
-    <script>
+    <script type="module">
+      import { switchScreen } from "./utils/index.js";
+
       document.addEventListener("contextmenu", function (e) {
         e.preventDefault();
       });
+
+      window.onload = () => {
+        const orientation = window.screen.orientation.type;
+        if (orientation.startsWith("landscape")) switchScreen("screen-home");
+        else switchScreen("screen-install");
+      };
     </script>
+
+    <!-- for install app - do not remove it -->
+    <button id="install-button" hidden></button>
     <script type="module" src="components/index.js"></script>
     <script src="scripts/app-install.js"></script>
   </body>

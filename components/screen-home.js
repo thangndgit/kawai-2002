@@ -13,7 +13,7 @@ export class ScreenHome extends Screen {
         background-image: url("${assets("/images/bg_home.jpg")}");
         background-size: contain;
         background-repeat: no-repeat;
-        background-position: center;
+        background-position: top;
       }
 
       #btn-start {
@@ -24,7 +24,7 @@ export class ScreenHome extends Screen {
         cursor: pointer;
         position: absolute;
         left: 50%;
-        bottom: 20dvh;
+        bottom: 22.5dvh;
         width: 60dvh;
         transform: translateX(-50%);
         border-bottom: 0.75dvh solid #fff;
@@ -68,7 +68,7 @@ export class ScreenHome extends Screen {
         cursor: pointer;
         position: absolute;
         left: 50%;
-        bottom: 7.5dvh;
+        bottom: 10dvh;
         width: 60dvh;
         transform: translateX(-50%);
         border-bottom: 0.75dvh solid #fff;
@@ -78,7 +78,7 @@ export class ScreenHome extends Screen {
       #btn-continue [gif] {
         background-image: url("${assets("/images/ani_pikachu.gif")}");
         background-repeat: no-repeat;
-        background-position: center;
+        background-position: top;
         background-size: contain;
         width: 100%;
         aspect-ratio: 3/2;

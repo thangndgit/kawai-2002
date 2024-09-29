@@ -6,6 +6,7 @@ import { GameStatus } from "./game-status.js";
 import { Screen } from "./screen.js";
 import { ScreenHome } from "./screen-home.js";
 import { ScreenGame } from "./screen-game.js";
+import { ScreenInstall } from "./screen-install.js";
 
 !customElements.get("mtm-timer-bar") && customElements.define("mtm-timer-bar", TimerBar);
 !customElements.get("mtm-game-cell") && customElements.define("mtm-game-cell", GameCell);
@@ -15,3 +16,4 @@ import { ScreenGame } from "./screen-game.js";
 !customElements.get("mtm-screen") && customElements.define("mtm-screen", Screen);
 !customElements.get("mtm-screen-home") && customElements.define("mtm-screen-home", ScreenHome);
 !customElements.get("mtm-screen-game") && customElements.define("mtm-screen-game", ScreenGame);
+!customElements.get("mtm-screen-install") && customElements.define("mtm-screen-install", ScreenInstall);
