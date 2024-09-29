@@ -1,27 +1,23 @@
 export function assignButtonAction(button) {
   let deferredPrompt;
 
-  // Kiểm tra nếu ứng dụng đã cài đặt PWA
   if (window.matchMedia("(display-mode: fullscreen)").matches) {
-    setButtonState("start", button); // Đã cài đặt -> 'Start'
+    setButtonState("start", button);
   } else {
-    setButtonState("install", button); // Chưa cài đặt -> 'Install'
+    setButtonState("install", button);
   }
 
-  // Xử lý sự kiện beforeinstallprompt khi app chưa được cài đặt
   window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    setButtonState("install", button); // Hiển thị 'Install'
+    setButtonState("install", button);
   });
 
-  // Kiểm tra sự kiện appinstalled khi app đã được cài đặt
   window.addEventListener("appinstalled", () => {
-    setButtonState("start", button); // Khi app được cài, chuyển thành 'Start'
+    setButtonState("start", button); 
     deferredPrompt = null;
   });
 
-  // Hàm thay đổi trạng thái button
   function setButtonState(state, button) {
     const textElement = button.querySelector('span:nth-child(2)')
 
@@ -41,7 +37,7 @@ export function assignButtonAction(button) {
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === "accepted") {
           console.log("Người dùng đã chấp nhận cài đặt.");
-          setButtonState("start", button); // Sau khi cài, đổi thành 'Start'
+          setButtonState("start", button);
         } else {
           console.log("Người dùng đã từ chối cài đặt.");
         }
