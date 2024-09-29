@@ -1,3 +1,4 @@
+import { assignButtonAction } from "../scripts/app-install.js";
 import { assets } from "../utils/assets.js";
 import { Screen } from "./screen.js";
 
@@ -10,7 +11,7 @@ export class ScreenInstall extends Screen {
     style.textContent = `
       .screen {
         background-image: url("${assets("/images/bg_home.jpg")}");
-        background-size: 180vw;
+        background-size: 150vw;
         background-repeat: no-repeat;
         background-position: center;
       }
@@ -75,10 +76,7 @@ export class ScreenInstall extends Screen {
   }
 
   connectedCallback() {
-    this.buttonInstall.addEventListener("click", () => {
-      const installButton = document.getElementById("install-button");
-      if (installButton) installButton.click();
-    });
+    assignButtonAction(this.buttonInstall);
     // this.show();
   }
 }

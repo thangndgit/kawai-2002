@@ -24,6 +24,9 @@
       <mtm-screen-install id="screen-install"></mtm-screen-install>
     </main>
 
+    <button id="install-button" hidden></button>
+    <button id="open-app-button" hidden></button>
+
     <script type="module">
       import { switchScreen } from "./utils/index.js";
 
@@ -38,8 +41,6 @@
       };
     </script>
 
-    <!-- for install app - do not remove it -->
-    <button id="install-button" hidden></button>
     <script type="module" src="components/index.js"></script>
     <script src="scripts/app-install.js"></script>
   </body>
