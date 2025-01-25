@@ -25,18 +25,25 @@ export class GameCell extends HTMLElement {
         border-radius: 0.75dvh;
         border: 0.1vh solid #999;
         position: relative;
-        box-shadow: 0.5dvh 0.5dvh 0px 0px #999;
+        box-shadow: 0.5dvh 0.5dvh 0px 0px  #999;
         cursor: pointer;
         user-select: none;
         pointer-events: auto;
         padding: 0.75dvh;
       }
-      ${!isMobile ? ".cell:hover," : ""} .cell.picked {
-        padding: 0.25dvh;
-        border: 0.6dvh double #ff8d00;
+      .cell:hover {
+        ${
+          !isMobile
+            ? `
+                padding: 0.25dvh;
+                border: 0.6dvh double rgba(255, 141, 0, 0.5);
+              `
+            : ""
+        }
       }
-      .cell.selected {
-        background: #dee2e6;
+      .cell.picked {
+        padding: 0.25dvh;
+        border: 0.6dvh double rgb(255, 141, 0);
       }
       .art {
         height: 100%;

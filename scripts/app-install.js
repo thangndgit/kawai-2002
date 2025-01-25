@@ -14,18 +14,18 @@ export function assignButtonAction(button) {
   });
 
   window.addEventListener("appinstalled", () => {
-    setButtonState("start", button); 
+    setButtonState("start", button);
     deferredPrompt = null;
   });
 
   function setButtonState(state, button) {
-    const textElement = button.querySelector('span:nth-child(2)')
+    const textElement = button.querySelector("span:nth-child(2)");
 
     if (state === "install") {
-      textElement?.textContent = "Install";
+      if (textElement) textElement.textContent = "Install";
       button.onclick = () => installApp(deferredPrompt, button);
     } else if (state === "start") {
-      textElement?.textContent = "Start";
+      if (textElement) textElement.textContent = "Start";
       button.onclick = startApp;
     }
   }
